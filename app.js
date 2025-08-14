@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 const app = express();
 
 const roleRouter = require('./routes/RoleRoutes');
@@ -16,12 +17,16 @@ app.listen(3003, () => {
   console.log('Server is running on port 3003');
 });
 
+// API url's
 app.use(cors());
 app.use('/api/roles', roleRouter);
 app.use('/api/users', userRouter);
 app.use('/api/categories', categoryRouter);
 app.use('/api/articles', articleRouter);
 app.use('/api/filters', filterRouter);
+
+// Static url's
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // configure mongoose
 mongoose.connect(
